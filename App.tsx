@@ -5,16 +5,15 @@ import { useTodos } from "./app/queries";
 import { Route } from "react-router";
  import { Routes } from "react-router";
 import { BrowserRouter } from "react-router-dom";
-import Layout from "./app/components/Layout";
+ import Navigation from "./Routes/navigation/navigation.component";
  
-import PostDetails from "./app/components/PostDetails";
-function App() {
+ function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout />}>
-          
+          <Route path="/" element={<Navigation/>}>
+           
            </Route>
         </Routes>
       </BrowserRouter>
