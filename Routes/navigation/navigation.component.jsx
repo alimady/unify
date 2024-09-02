@@ -10,8 +10,9 @@ import {
   LogoContainer,
 } from "./navigation.styles";
 import TotalCases from "../../Components/TotalCases/TotalCases.component";
-
-const Navigation = () => {
+import BikeCaseItem from "../../Components/BikeCaseItem/BikeCaseItem.components";
+import BikeList from "../BikeList/BikeList.components";
+ const Navigation = () => {
   return (
     <Fragment>
       <NavigationContainer>
@@ -19,19 +20,13 @@ const Navigation = () => {
           <PoliceLogo className="logo" />
         </LogoContainer>
         <NavLinks>
-          <NavLink to="/search">Search Bikes</NavLink>
-           
+          <NavLink to="/search" >Search Bikes</NavLink>
           <NavLink to="/info"> Info</NavLink>
           <NavLink to="/info"> 
-          
           </NavLink>
-
         </NavLinks>
       </NavigationContainer>
-      <TotalCases/>
-      <Outlet />
+         <Outlet />
     </Fragment>
-  );
-};
-
+  );}
 export default Navigation;

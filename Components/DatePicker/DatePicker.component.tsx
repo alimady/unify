@@ -15,7 +15,6 @@ export default function DateFilter({label}:labelType) {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer components={['DatePicker', 'DatePicker']}>
-
       <DatePicker
           label="From :"
           value={StartDate}

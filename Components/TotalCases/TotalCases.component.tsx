@@ -1,12 +1,11 @@
 import React from 'react'
-import { Total, TotalCount, TotalLabel } from './TotalCases.styles'
+import { Total, TotalLabel } from './TotalCases.styles'
 
 const TotalCases = () => {
   return (
    <Total>
-    <TotalLabel>bike theft cases :</TotalLabel>
-    <TotalCount>43</TotalCount>
-    </Total>
+    <TotalLabel>Bike theft cases : <strong className='text-red-500'>45</strong></TotalLabel>
+     </Total>
   )
 }
 
