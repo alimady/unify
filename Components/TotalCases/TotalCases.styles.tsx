@@ -6,7 +6,7 @@ export const Total = styled.div`
   justify-content: center;
   align-items:center;
   flex-direction:column;
-  margin-bottom: 25px;
+  margin-bottom: 10px;
   padding:0.5rem;
   color:#00000;
     

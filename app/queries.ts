@@ -25,11 +25,11 @@ const onSuccess=(msg:string)=>{
   console.log(msg);
 }
    
-export  const useTodos = (id: number) => {
+export  const useSearchBikes = (id?: number) => {
   const { isError, data, isLoading ,isSuccess } = useQuery({
     queryKey: ["todos", id],
     queryFn:  async() => {
-      return  await axios.get(`https://jsonplaceholder.typicode.com/todos/${id}`)
+      return  await axios.get(`bikeindex.org/api/v3/search:443`)
       .then((res) => {
        return res.data;
       });
@@ -37,7 +37,7 @@ export  const useTodos = (id: number) => {
     },
   });
 
-     return {isError,todo:data,isSuccess , isLoading} 
+     return {isError,Bikes:data,isSuccess , isLoading} 
 
 };
 
