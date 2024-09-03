@@ -4,28 +4,35 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import CardActionArea from '@mui/material/CardActionArea';const BikeCaseItem = () => {
+import CardActionArea from '@mui/material/CardActionArea';
+import { BikeData } from "../../app/queries";
+import moment from "moment";
+type BikeItemData ={
+  bike:BikeData
+}
+const BikeCaseItem = ({bike:{title,year,date_stolen,description,stolen_location,large_img}}:BikeItemData) => {
   return (
     <Card sx={{ maxWidth: 345 ,maxHeight:"auto"}} >
       <CardActionArea>
         <CardMedia
           component="img"
-           image="/logo192.png"
+           image={large_img??"/bike_default.jpg"}
+           height="140"
+            
           alt="green iguana"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Lizard
+            {title}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+          {description}
           </Typography>
           <div className="dates mt-2 ">
-            <span><strong>Stolen:</strong> Aug 22nd</span> &nbsp;&nbsp; <span><strong>Reported:</strong>Oct 22nd</span>
+            <span><strong>Reported:</strong>{moment.unix(date_stolen).format("DD/MM/YYYY")}</span> &nbsp;&nbsp; <span><strong>Stolen:</strong>{year}</span>
           </div>
           <div className="location mt-1">
-          <span><strong>Location:</strong> Innsbruck, 6020, AT</span>
+          <span><strong>Location:</strong>{stolen_location}</span>
           </div>
         </CardContent>
       </CardActionArea>
