@@ -7,33 +7,26 @@ import { useQueryClient } from "@tanstack/react-query";
 import { BikeData } from "../../app/Api";
 import { useDeferredValue } from "react";
 import BikeList from "../../Routes/BikeList/BikeList.components";
-import useDebounce from "../../app/utils";
+import useDebounce from "../../app/utils/useDebounce";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useQuery } from "@tanstack/react-query";
 import Paginator from "../paginator/Paginator.component";
+import Error from "../Error/Error.component";
+import { GetDates } from "../../app/utils/getDates";
+import NotMatch from "../NotMatch/NotMatch.component";
 
 const FilterArea = () => {
   const [page, setPage] = useState<number>(1);
   const [searchField, setSearchField] = useState<string>("");
   const debouncedFeild = useDebounce(searchField, 500);
-  const initialData = {
-    StartDate: "",
-    EndDate: "",
-  };
-  const { data: value } = useQuery({
-    queryKey: ["dates"],
-    queryFn: () => initialData,
-  });
-
+  const { Dates } = GetDates();
   const { bikes, isLoading, isError, isPlaceholderData, isFetching } =
-    SearchBikes(page, debouncedFeild, value);
-
-  console.log(isLoading);
+    SearchBikes(page, debouncedFeild, Dates);
 
   if (isFetching) {
-    console.log(isLoading);
     return <CircularProgress />;
   }
+
   return (
     <>
       <FilterContainer>
@@ -50,15 +43,9 @@ const FilterArea = () => {
       </FilterContainer>
       {bikes && <BikeList bikes={bikes} />}
       {!isError && !bikes.length && (
-        <div>
-          <strong>Not Match !!!</strong>
-        </div>
+       <NotMatch/>
       )}
-      {isError && (
-        <div>
-          <strong className="text-red-700">Connection Error !!</strong>
-        </div>
-      )}
+      {isError && <Error />}
       <Paginator
         page={page}
         isPlaceholderData={isPlaceholderData}

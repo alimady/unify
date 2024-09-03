@@ -25,7 +25,7 @@ const Paginator = ({
       >
         Preve
       </NavBotton>
-      <p> The Api NOT provides respone page information </p>
+      <p> The Api NOT provides  information about page in respone </p>
       <NavBotton
         onClick={() => {
           setPage((old) => old + 1);

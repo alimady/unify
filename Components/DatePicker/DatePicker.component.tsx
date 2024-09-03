@@ -21,13 +21,13 @@ export default function DateFilter() {
       <DemoContainer components={['DatePicker', 'DatePicker']}>
       <DatePicker
           label="From :"
-          value={StartDate}
+          value={StartDate ?? dayjs()}
           onChange={(newValue) => setStartDate(newValue)}
         />
 
         <DatePicker
           label="To :"
-          value={EndDate}
+          value={EndDate ?? dayjs()}
           onChange={(newValue) => setEndDate(newValue)}
         />
       </DemoContainer>

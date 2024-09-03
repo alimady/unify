@@ -16,7 +16,7 @@ import Main from "./Routes/Main/Main.component";
       <BrowserRouter>
       <Container>
         <Routes>
-          <Route path="/search" element={<Navigation/>}>
+          <Route path="/" element={<Navigation/>}>
             <Route index element={<Main/>}></Route>
            </Route>
         </Routes>
