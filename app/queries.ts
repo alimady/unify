@@ -1,6 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
+ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-
+import moment from "moment";
 axios.create({
   baseURL: "http://localhost:3000/",
   headers: {
@@ -36,7 +36,12 @@ export type BikeData = {
   id:number
 };
 
-export const  SearchBikes = (id="",query="") => {
+type dataprops={
+    StartDate: string;
+    EndDate: string;
+}| undefined
+
+export const  SearchBikes = (id="",query="",value:dataprops) => {
    const { isError, data, isLoading, isSuccess } = useQuery({
     queryKey: ["todos",query],
     queryFn: async () => {
@@ -47,7 +52,8 @@ export const  SearchBikes = (id="",query="") => {
         });
     },
     select: (data) => {
-      return data.bikes.map((bike: BikeData) => {
+    
+      const CleanedData= data.bikes.map((bike: BikeData) => {
         return {
           title: bike.title,
           date_stolen: bike.date_stolen,
@@ -58,6 +64,15 @@ export const  SearchBikes = (id="",query="") => {
           id:bike.id
         };
       });
+
+      if (value?.StartDate!==undefined && value?.EndDate!==undefined){
+        const firstDate=new Date(value!.StartDate)
+        const EndDate=new Date(value!.EndDate)
+        const filterByDateDate= CleanedData.filter((bike:BikeData)=>((firstDate<moment.unix(bike.date_stolen).toDate() && (EndDate>moment.unix(bike.date_stolen).toDate()))))
+        //console.log(filterByDateDate)
+        return filterByDateDate;
+       }
+          return CleanedData
     },
     retry:0,
     refetchOnWindowFocus:false

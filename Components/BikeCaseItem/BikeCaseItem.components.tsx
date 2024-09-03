@@ -29,7 +29,7 @@ const BikeCaseItem = ({bike:{title,year,date_stolen,description,stolen_location,
           {description}
           </Typography>
           <div className="dates mt-2 ">
-            <span><strong>Reported:</strong>{moment.unix(date_stolen).format("DD/MM/YYYY")}</span> &nbsp;&nbsp; <span><strong>Stolen:</strong>{year}</span>
+            <span><strong>Reported:</strong>{moment.unix(date_stolen).format("MM/DD/YYYY")}</span> &nbsp;&nbsp; <span><strong>Stolen:</strong>{year}</span>
           </div>
           <div className="location mt-1">
           <span><strong>Location:</strong>{stolen_location}</span>

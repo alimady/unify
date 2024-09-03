@@ -4,12 +4,18 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-
- 
+import { useQueryClient } from '@tanstack/react-query';
+import { useEffect } from 'react';
+ import moment from 'moment';
 export default function DateFilter() {
-  const [StartDate, setStartDate] = React.useState<Dayjs | null>(dayjs('2022-04-17'));
-  const [EndDate, setEndDate] = React.useState<Dayjs | null>(dayjs('2022-04-17'));
-
+  const [StartDate, setStartDate] = React.useState<Dayjs | null>();
+  const [EndDate, setEndDate] = React.useState<Dayjs | null>();
+  const client=useQueryClient()
+    
+  useEffect(()=>{
+    client.setQueryData(["dates"],{StartDate,EndDate})
+  },[StartDate,EndDate])
+ 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer components={['DatePicker', 'DatePicker']}>
