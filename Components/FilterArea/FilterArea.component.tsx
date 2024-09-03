@@ -2,16 +2,18 @@ import React, { useCallback, useState } from "react";
 import { FilterContainer } from "./FilterArea.styles";
 import { TextField } from "@mui/material";
 import DateFilter from "../DatePicker/DatePicker.component";
-import { SearchBikes } from "../../app/queries";
+import { SearchBikes } from "../../app/Api";
 import { useQueryClient } from "@tanstack/react-query";
-import { BikeData } from "../../app/queries";
+import { BikeData } from "../../app/Api";
 import { useDeferredValue } from "react";
 import BikeList from "../../Routes/BikeList/BikeList.components";
 import useDebounce from "../../app/utils";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useQuery } from "@tanstack/react-query";
+import Paginator from "../paginator/Paginator.component";
 
 const FilterArea = () => {
+  const [page, setPage] = useState<number>(1);
   const [searchField, setSearchField] = useState<string>("");
   const debouncedFeild = useDebounce(searchField, 500);
   const initialData = {
@@ -23,12 +25,13 @@ const FilterArea = () => {
     queryFn: () => initialData,
   });
 
-  console.log(value)
-  
-  const { bikes, isLoading, isError } = SearchBikes("1", debouncedFeild,value);
-  const deffered = useDeferredValue(bikes);
+  const { bikes, isLoading, isError, isPlaceholderData, isFetching } =
+    SearchBikes(page, debouncedFeild, value);
 
-  if (isLoading) {
+  console.log(isLoading);
+
+  if (isFetching) {
+    console.log(isLoading);
     return <CircularProgress />;
   }
   return (
@@ -42,12 +45,11 @@ const FilterArea = () => {
             value={searchField}
             onChange={(e) => setSearchField(e.target.value)}
           />
-          <button className="w-1/3 bg-blue-600 rounded-sm p-2"> Search</button>
         </div>
         <DateFilter />
       </FilterContainer>
-      {bikes && <BikeList bikes={deffered} />}
-      {!isError && !bikes?.length && (
+      {bikes && <BikeList bikes={bikes} />}
+      {!isError && !bikes.length && (
         <div>
           <strong>Not Match !!!</strong>
         </div>
@@ -57,6 +59,12 @@ const FilterArea = () => {
           <strong className="text-red-700">Connection Error !!</strong>
         </div>
       )}
+      <Paginator
+        page={page}
+        isPlaceholderData={isPlaceholderData}
+        setPage={setPage}
+        bikes={bikes}
+      />
     </>
   );
 };
